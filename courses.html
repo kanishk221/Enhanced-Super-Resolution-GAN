@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Courses</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet"href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="courses.css" rel="stylesheet">
+        <link rel="stylesheet" href="home.css">
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+        <link rel="icon" href="./assets/iiita.png" type="image/x-icon">
+    </head>
+    <body style="display: none;">
+        <nav>
+            <div class="container main-nav flex">
+                <a href="index.html" class="company-logo">
+                    <img src="./assets/1.png" alt="company company-logo">
+                </a>
+                <div class="nav-links" id="nav-links">
+                    <ul class="flex">
+                        <li><a href="#" class="hover-link">Courses</a></li>
+                        <li><a href="collab.html" class="hover-link">Collaborators</a></li>
+                        <li><a href="publications.html" class="hover-link">Publications</a></li>
+                        <li><a href="contact.html" class="hover-link">Contact Us</a></li>
+                        <li><a href="login.html" class="hover-link secondary-button" id="userlink">Sign in</a></li>
+                        <li><a href="signup.html" class="hover-link primary-button" id="signoutlink">Sign up</a></li>
+                    </ul>
+                </div>
+                <a href="#" class="nav-toggle hover:link" id="nav-toggle"><i class="fa-solid fa-bars"></i></a>
+            </div>
+        </nav>
+        <div class="courses-container" id="course-cont">
+            <!-- <div class="course">
+                <div class="course-preview">
+                    <h6>Course ID- LAL</h6>
+                    <h2>Linear Algebra</h2>
+                </div>
+                <div class="course-info">
+                    <h6>Course Instructor</h6>
+                    <h2>Seema Kushwaha</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias natus molestias debitis nemo enim? Ipsam, fugit libero tempora aut inventore eos repellat delectus praesentium dolore numquam laudantium ullam debitis esse.</p>
+                    <br>
+                    <br>
+                    <button class="btn">Course Link</button>
+                </div>
+            </div> -->
+        </div>
+        
+        <!-- SOCIAL PANEL HTML -->
+        <div class="social-panel-container">
+            <div class="social-panel">
+                <p>Created with <i class="fa fa-heart"></i> by
+                    <a target="_blank" href="https://florin-pop.com">Florin Pop</a></p>
+                <button class="close-btn"><i class="fas fa-times"></i></button>
+                <h4>Get in touch on</h4>
+                <ul>
+                    <li>
+                        <a href="https://www.patreon.com/florinpop17" target="_blank">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/florinpop1705" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linkedin.com/in/florinpop17" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/florinpop17" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/florinpop17" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            let userlink=document.getElementById('userlink');
+            let signoutlink=document.getElementById('signoutlink');
+            var currentuser=null;
+            var fileName = location.href.split("/").slice(-1); 
+            function getUsername(){
+                let keepLoggedIn=localStorage.getItem("keepLoggedIn");
+                if(keepLoggedIn=="yes"){
+                    currentuser=JSON.parse(localStorage.getItem('user'));
+                }
+                else{
+                    currentuser=JSON.parse(sessionStorage.getItem('user'));
+                }
+            }
+            function SignOut(){
+                sessionStorage.removeItem('user');
+                localStorage.removeItem('user');
+                localStorage.removeItem('keepLoggedIn');
+                window.location=fileName;
+                alert("Signed Out Succesfully!");
+            }
+            window.onload=()=>{
+                getUsername();
+                if(currentuser==null){
+                    userlink.innerText="Sign in";
+                    userlink.href="login.html";
+                    signoutlink.innerText="Sign Up";
+                    signoutlink.href="signup.html";
+                }
+                else{
+                    userlink.innerText=currentuser.firstname;
+                    userlink.href="./profile-page/profile.html";
+                    signoutlink.innerText="Sign Out";
+                    signoutlink.href="javascript:SignOut()";
+                }
+                document.body.style.display=null;
+            }
+          </script>   
+        <!-- <script>
+            const floating_btn = document.querySelector('.floating-btn');
+            const close_btn = document.querySelector('.close-btn');
+            const social_panel_container = document.querySelector('.social-panel-container');
+            
+            floating_btn.addEventListener('click', () => {
+                social_panel_container.classList.toggle('visible')
+            });
+            
+            close_btn.addEventListener('click', () => {
+                social_panel_container.classList.remove('visible')
+            });
+            </script> -->
+            <script type="module">
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+                const firebaseConfig = {
+                    apiKey: "AIzaSyDNee1JHsHXTfZIqBudf-HoHDghcYwdfL0",
+                    authDomain: "bdaa-a48ca.firebaseapp.com",
+                    projectId: "bdaa-a48ca",
+                    storageBucket: "bdaa-a48ca.appspot.com",
+                    messagingSenderId: "749803302390",
+                    appId: "1:749803302390:web:9f050fba5b42e166c86bd7"
+                };
+
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+
+                import {getDatabase,ref,set,child,get} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+                let par=document.getElementById('course-cont');
+                const db=getDatabase();
+                const dbref=ref(db);
+                get(child(dbref,"CourseList/")).then((snapshot)=>{
+                    snapshot.forEach(e=>{
+                        let outerdiv=document.createElement('div');
+                        outerdiv.classList.add('course');
+                        let one=document.createElement('div');
+                        one.classList.add('course-preview');
+                        let two=document.createElement('h6');
+                        two.innerText="Course ID - "+e.val().cid;
+                        let three=document.createElement('h2');
+                        three.innerText=e.val().cname;
+                        let eight=document.createElement('p');
+                        eight.innerText=e.val().cab;
+                        let nine=document.createElement('br');
+                        let ten=document.createElement('br');
+                        let four=document.createElement('div');
+                        four.classList.add('course-info');
+                        let five=document.createElement('h6');
+                        five.innerText="Course Instructor";
+                        let six=document.createElement('h2');
+                        six.innerText=e.val().iname;
+                        let seven=document.createElement('button');
+                        seven.classList.add('btn');
+                        seven.innerText="Course Link ->";
+                        seven.onclick=()=>{
+                            window.open(e.val().clink);
+                        }
+                        four.appendChild(five);                       
+                        four.appendChild(six);
+                        four.appendChild(eight);
+                        four.appendChild(nine);
+                        four.appendChild(ten);
+                        four.appendChild(seven);
+                        one.appendChild(two);
+                        one.appendChild(three);
+                        outerdiv.appendChild(one);
+                        outerdiv.appendChild(four);
+                        par.appendChild(outerdiv);
+                    })
+                })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Profile</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="profile.css">
+	<link rel="icon" href="../assets/iiita.png" type="image/x-icon">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+	<section class="py-3 my-3">
+		<div class="container">
+			<div class="d-flex justify-content-sm-between">
+				<h1 class="m-3">Your Profile</h1>
+				<button type="button" class="btn-primary btn m-3 pr-3 pl-3" onclick="goToHome()">Home</button>
+				<div class="toastr">
+					<div class="toast-content">
+					  <i class="fas fa-solid fa-check check" id="res-icon"></i>
+					  <i class="fas fa-solid fa-xmark check" id="res-icon-error"></i>
+					  <div class="message">
+						<span class="text text-1" id="response">Success</span>
+						<span class="text text-2" id="res-desc">Image has been uploaded successfully</span>
+					  </div>
+					</div>
+					<i class="fa-solid fa-xmark close"></i>
+					<div class="progress"></div>
+				</div>
+			</div>
+			
+			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
+				<div class="profile-tab-nav border-right">
+					<div class="p-4">
+						<div class="img-circle text-center mb-3">
+							<input type="file" class="custom-file-input" id="user" style="display: none;" accept="image/png,image/jpeg">
+							<label for="user"><img src="https://png.pngtree.com/png-clipart/20200226/original/pngtree-colorful-loading-icon-png-image_5326551.jpg" id="img-inp" alt="Image" class="shadow"></label>
+							<p id="progg" class="hidden">90% Uploaded</p>
+						</div>
+						<h4 class="text-center" id="main-name">First Last</h4>
+					</div>
+					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+							<i class="fa fa-home text-center mr-1"></i> 
+							Update Profile
+						</a>
+						<a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
+							<i class="fa fa-key text-center mr-1"></i> 
+							Change Password
+						</a>
+						<a class="nav-link" id="application-tab" data-toggle="pill" href="#publication" role="tab" aria-controls="application" aria-selected="false">
+							<i class="fa fa-tv text-center mr-1"></i> 
+							Publications
+						</a>
+						<a class="nav-link" id="notification-tab" data-toggle="pill" href="#addpub" role="tab" aria-controls="notification" aria-selected="false">
+							<i class="fa fa-plus-square text-center mr-1"></i> 
+							Add Publications
+						</a>
+						<a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
+							<i class="fa fa-bell text-center mr-1"></i> 
+							Notifications
+						</a>
+					</div>
+				</div>
+				<div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+						<h3 class="mb-4">Password Settings</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Old password</label>
+								  	<input type="password" class="form-control" id="opass" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>New password</label>
+								  	<input type="password" class="form-control" id="npass" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Confirm new password</label>
+								  	<input type="password" class="form-control" id="cnpass" required>
+								</div>
+							</div>
+						</div>
+						<div>
+							<button class="btn btn-primary" id="pass-update">Update</button>
+							<button class="btn btn-light">Cancel</button>
+						</div>
+					</div>
+					<div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+						<h3 class="mb-4">Account Settings</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>First Name</label>
+								  	<input id="fname" type="text" class="form-control" value="">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Last Name</label>
+								  	<input id="lname" type="text" class="form-control" value="">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Email</label>
+								  	<input id="uemail" type="text" class="form-control" value="">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Phone number</label>
+								  	<input id="unum" type="text" class="form-control" id="phone-num" value="" disabled>
+								</div>
+							</div>
+						</div>
+						<div>
+							<button class="btn btn-primary" id="update-user-data">Update</button>
+							<button class="btn btn-light">Cancel</button>
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="publication" role="tabpanel" aria-labelledby="application-tab">
+						<h3 class="mb-4">Your Publications</h3>
+						<div class="data-table">
+							<table>
+							  <thead>
+								<th>Sr No.</th>
+								<th>Publication Name</th>
+								<th>Link</th>
+								<th>Operations</th>
+							  </thead>
+							  <tbody id="tbody1">
+							  </tbody>
+							</table>
+						  </div>
+					</div>
+					<div class="tab-pane fade" id="addpub" role="tabpanel" aria-labelledby="application-tab">
+						<h3 class="mb-4">Add New Publication</h3>	
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Publication Name</label>
+								  	<input type="text" class="form-control"  id="addpub-pname" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Publication Link</label>
+								  	<input type="text" class="form-control"  id="addpub-plink" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Description</label>
+								  	<input type="text" class="form-control"  id="addpub-pdec" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Phone number</label>
+								  	<input type="text" class="form-control" id="addpub-pnum" disabled>
+								</div>
+							</div>
+						</div>
+						<div>
+							<button class="btn btn-primary" id="addpub-add">Add</button>
+							<button class="btn btn-light">Cancel</button>
+						</div>
+				
+					</div>
+					
+					<div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+						<h3 class="mb-4">Notification Settings</h3>
+						<div class="form-group">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox"  id="ck1">
+								<label class="form-check-label" for="notification1">
+									Send new updates
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox"  id="ck2" >
+								<label class="form-check-label" for="notification2">
+									Do not disturb
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox"  id="ck3">
+								<label class="form-check-label" for="notification3">
+									Receive newsletters
+								</label>
+							</div>
+						</div>
+						<div>
+							<button class="btn btn-primary" id="ck-update">Update</button>
+							<button class="btn btn-light">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script src="https://kit.fontawesome.com/8012ccd6a4.js" crossorigin="anonymous"></script>
+	<script>
+		function goToHome() {
+			window.location="../index.html";
+		}
+		const toast = document.querySelector(".toastr");
+		(closeIcon = document.querySelector(".close")),
+		(progress = document.querySelector(".progress"));
+
+		let timer1, timer2;
+
+		function Toggle (str) {
+			if(str==="pass"){
+				document.getElementById("res-icon-error").style.display="none";
+				document.getElementById("res-icon").style.display="visible";
+				document.getElementById("response").innerHTML="Success";
+				document.getElementById("res-desc").innerHTML="Password Has Been Changed Successfully";
+			}
+			if(str==="img"){
+				document.getElementById("res-icon-error").style.display="none";
+				document.getElementById("res-icon").style.display="visible";
+				document.getElementById("response").innerHTML="Success";
+				document.getElementById("res-desc").innerHTML="Image Has Been Uploaded Successfully";
+			}
+			if(str==="publication"){
+				document.getElementById("res-icon-error").style.display="none";
+				document.getElementById("res-icon").style.display="visible";
+				document.getElementById("response").innerHTML="Success";
+				document.getElementById("res-desc").innerHTML="Publication Deleted Successfully";
+			}
+			if(str==="pubaddsuc"){
+				document.getElementById("res-icon-error").style.display="none";
+				document.getElementById("res-icon").style.display="visible";
+				document.getElementById("response").innerHTML="Success";
+				document.getElementById("res-desc").innerHTML="Publication Adding Request Made Successfully";
+			}
+			if(str==="notification"){
+				document.getElementById("res-icon-error").style.display="none";
+				document.getElementById("res-icon").style.display="visible";
+				document.getElementById("response").innerHTML="Success";
+				document.getElementById("res-desc").innerHTML="We Will Remember Your Changes";
+			}
+			if(str==="New Passwords doesn't match!"){
+				document.getElementById("res-icon-error").style.backgroundColor="red";
+				document.getElementById("res-icon-error").style.display="visible";
+				document.getElementById("res-icon").style.display="none";
+				document.getElementById("response").innerHTML="Error";
+				document.getElementById("res-desc").innerHTML="New Passwords doesn't match!";
+			}
+			if(str==="Old Password is Wrong!"){
+				document.getElementById("res-icon-error").style.backgroundColor="red";
+				document.getElementById("res-icon-error").style.display="visible";
+				document.getElementById("res-icon").style.display="none";
+				document.getElementById("response").innerHTML="Error";
+				document.getElementById("res-desc").innerHTML="Old Password is Wrong!";
+			}
+			if(str==="Info Updated Successfully!"){
+				document.getElementById("res-icon-error").style.display="none";
+				document.getElementById("res-icon").style.display="visible";
+				document.getElementById("response").innerHTML="Success";
+				document.getElementById("res-desc").innerHTML="Info Updated Successfully!";
+			}
+			toast.classList.add("active");
+			progress.classList.add("active");
+
+			timer1 = setTimeout(() => {
+				toast.classList.remove("active");
+			}, 5000); //1s = 1000 milliseconds
+
+			timer2 = setTimeout(() => {
+				progress.classList.remove("active");
+			}, 5300);
+		}
+
+		closeIcon.addEventListener("click", () => {
+		toast.classList.remove("active");
+
+		setTimeout(() => {
+			progress.classList.remove("active");
+		}, 300);
+
+		clearTimeout(timer1);
+		clearTimeout(timer2);
+});
+	</script>
+	<script type="module">
+		function loadUser(){
+			let currentuser;
+			let keepLoggedIn=localStorage.getItem("keepLoggedIn");
+            if(keepLoggedIn=="yes"){
+                currentuser=JSON.parse(localStorage.getItem('user'));
+				return currentuser;
+            }
+            else{
+                currentuser=JSON.parse(sessionStorage.getItem('user'));
+				return currentuser;
+            }
+		}
+		
+		function start(){
+			let userData=loadUser();
+			if(!userData){
+				goToHome();
+			}
+			document.getElementById("main-name").innerText=userData.firstname+" "+userData.lastname;
+			document.getElementById("fname").value=userData.firstname;
+			document.getElementById("lname").value=userData.lastname;
+			document.getElementById("unum").value="+91 "+userData.phone_no;
+			document.getElementById("uemail").value=userData.email;
+			AddPubToTable();
+			MarkChecks();
+			AddUserImg();
+		}
+		
+		let userData=loadUser();
+		window.onload=()=>start();
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+		const firebaseConfig = {
+			apiKey: "AIzaSyDNee1JHsHXTfZIqBudf-HoHDghcYwdfL0",
+			authDomain: "bdaa-a48ca.firebaseapp.com",
+			databaseURL: "https://bdaa-a48ca-default-rtdb.firebaseio.com",
+			projectId: "bdaa-a48ca",
+			storageBucket: "bdaa-a48ca.appspot.com",
+			messagingSenderId: "749803302390",
+			appId: "1:749803302390:web:9f050fba5b42e166c86bd7"
+		};
+
+		const app = initializeApp(firebaseConfig);
+		//IMAGE
+		import {getDatabase,ref,set,child,get,remove,update} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+		import {getStorage,ref as sRef,uploadBytesResumable,getDownloadURL} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-storage.js";
+		const db=getDatabase();
+		const dbRef=ref(db);
+
+		let upload=document.getElementById("user");
+		let img=document.getElementById("img-inp");
+		
+		const storage=getStorage();
+		const storageRef = sRef(storage, 'images/'+userData.phone_no);
+		upload.onchange=()=>{
+			let reader=new FileReader();
+			reader.readAsDataURL(upload.files[0]);
+			reader.onload=()=>{
+				img.setAttribute("src",reader.result);
+			}
+			const uploadTask = uploadBytesResumable(storageRef, upload.files[0]);
+			let progg=document.getElementById("progg");
+			progg.classList.remove("hidden");
+			uploadTask.on("state-changed",(snapshot)=>{
+				var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+				var result = Math.round(progress);
+				progg.innerHTML=result+"% Uploaded";
+				if(progress==100){
+					Toggle("img");
+					progg.classList.add("hidden");
+				}
+			},(e)=>{
+				alert("Error! Image Not Uploaded");
+			},()=>{
+				
+				getDownloadURL(storageRef)
+				.then((url)=>{
+					img.setAttribute("src",url);
+				})
+				.catch(()=>{
+					img.setAttribute("src","user2.jpeg");
+				})
+			})
+		}
+		function AddUserImg(){
+			getDownloadURL(storageRef)
+			.then((url)=>{
+				img.setAttribute("src",url);
+			})
+			.catch(()=>{
+				img.setAttribute("src","user2.jpeg");
+			})
+			
+		}
+		//USER DATA
+		document.getElementById("update-user-data").addEventListener("click",()=>{
+			let userData=loadUser();
+			update(ref(db,"UsersList/"+userData.phone_no),{
+				email:document.getElementById("uemail").value,
+				firstname:document.getElementById("fname").value,
+				lastname:document.getElementById("lname").value
+			}).then(()=>{
+				get(child(dbRef,"UsersList/"+userData.phone_no)).then((snapshot)=>{
+					let keeploggedIn=localStorage.getItem("keepLoggedIn");
+					if(!keeploggedIn){
+						sessionStorage.setItem('user',JSON.stringify(snapshot));
+						start();
+					}
+					else{
+						localStorage.setItem('keepLoggedIn','yes'); 
+						localStorage.setItem('user',JSON.stringify(snapshot));
+						start();
+					}
+				});
+				Toggle("Info Updated Successfully!");
+			})
+		})
+		
+		document.getElementById("pass-update").addEventListener("click",AuthenticateUser);
+
+		function AuthenticateUser(){
+			let userData=loadUser();
+			let opass=document.getElementById("opass");
+			let cnpass=document.getElementById("cnpass");
+			let npass=document.getElementById("npass");
+			if(npass.value!==cnpass.value){
+				Toggle("New Passwords doesn't match!");
+				return;
+			}
+            get(child(dbRef,"UsersList/"+userData.phone_no)).then((snapshot)=>{
+                if(snapshot.exists()){
+                    let dbPass=decPass(snapshot.val().password);
+                    if(dbPass!==opass.value){
+						Toggle("Old Password is Wrong!");
+                        return;
+                    }
+                    else{
+                        UpdatePass(npass,userData.phone_no);
+                    }
+                }
+                else{
+                    Toggle("Error");
+                }
+            });
+        }
+		function EncryptPass(pass){
+            var pass12=CryptoJS.AES.encrypt(pass.value,pass.value);
+            return pass12.toString();
+        }
+		let opass=document.getElementById("opass");
+		let cnpass=document.getElementById("cnpass");
+		let anpass=document.getElementById("npass");
+		function UpdatePass(npass,pnum){
+			update(ref(db,"UsersList/"+pnum),{
+				password:EncryptPass(npass)
+			}).then(()=>{
+				opass.value="";
+				cnpass.value="";
+				anpass.value="";
+				Toggle("pass");
+			})
+		}
+        function decPass(dbpass){
+            var pass12=CryptoJS.AES.decrypt(dbpass,opass.value);
+            return pass12.toString(CryptoJS.enc.Utf8);
+        }  
+		function AddPubToTable(){
+			let par=document.getElementById("tbody1");
+			let ct=1;
+			par.innerHTML="";
+			get(child(dbRef,"Publications/"+userData.phone_no+"/")).then((snapshot)=>{
+				snapshot.forEach(x=>{
+					let trow=document.createElement("tr");
+					trow.innerHTML+=`<td>${ct++}</td>
+							<td>${x.val().pname}</td>
+							<td><a href="${x.val().plink}" target="blank">${x.val().plink}</a></td>`;
+					let d=document.createElement("td");
+					d.innerHTML=`<ion-icon name="trash-outline" class="delicon"></ion-icon>`;
+					d.onclick=function(){delpub(x.val().pname)};
+					trow.appendChild(d);
+					par.appendChild(trow);
+				})
+			})
+		} 
+		function delpub(str){
+			remove(child(dbRef,"Publications/"+userData.phone_no+"/"+str)).then(()=>{
+				Toggle("publication");
+				AddPubToTable();
+			})
+		}
+		//ADD PUBLICATIONS
+		document.getElementById("addpub-pnum").value=userData.phone_no;
+		document.getElementById("addpub-add").addEventListener("click",AddPub);
+		let npname=document.getElementById("addpub-pname");
+		let nplink=document.getElementById("addpub-plink");
+		let npdec=document.getElementById("addpub-pdec");
+		function AddPub(){
+			get(child(dbRef,"Publications/"+userData.phone_no+"/"+npname.value)).then(ss=>{
+				if(ss.exists()){
+					alert("Publication with same name already Exists!");
+				}
+				else{
+					set(child(dbRef,"PublicationsReq/"+userData.phone_no+"/"+npname.value),{
+						pname:npname.value,
+						plink:nplink.value,
+						pdec:npdec.value,
+						pnum:userData.phone_no
+					})
+					.then(()=>{
+						Toggle("pubaddsuc");
+						npname.value="";
+						nplink.value="";
+						npdec.value="";
+						AddPubToTable();
+					})
+				}
+			})
+		}
+		//notifications
+		function MarkChecks(){
+			let ck1=localStorage.getItem(userData.phone_no+"ck1");
+			let ck2=localStorage.getItem(userData.phone_no+"ck2");
+			let ck3=localStorage.getItem(userData.phone_no+"ck3");
+			if(ck1){
+				document.getElementById("ck1").checked=true;
+			}
+			if(ck2){
+				document.getElementById("ck2").checked=true;
+			}
+			if(ck3){
+				document.getElementById("ck3").checked=true;
+			}
+		}
+		document.getElementById("ck-update").addEventListener("click",()=>{
+			if(document.getElementById("ck1").checked){
+				localStorage.setItem(userData.phone_no+"ck1",true);
+			}
+			else{
+				localStorage.removeItem(userData.phone_no+"ck1");
+			}
+			if(document.getElementById("ck2").checked){
+				localStorage.setItem(userData.phone_no+"ck2",true);
+			}
+			else{
+				localStorage.removeItem(userData.phone_no+"ck2");
+			}
+			if(document.getElementById("ck3").checked){
+				localStorage.setItem(userData.phone_no+"ck3",true);
+			}
+			else{
+				localStorage.removeItem(userData.phone_no+"ck3");
+			}
+			MarkChecks();
+			Toggle("notification");
+		})
+	</script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

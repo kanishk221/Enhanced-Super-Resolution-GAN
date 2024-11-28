@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <link rel="icon" href="./assets/iiita.png" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="admin-login.css">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <div id="navbar">
+        <img src="1.png" id="logo" alt="">
+        <!-- <a href="#" id="Home">Home</a> -->
+        <button onclick="window.location.href='index.html';" class="custom-btn btn-3"><span>Home</span></button>
+    </div>
+    
+    <div class="outer">
+        <div class="container">
+            <div class="design">
+                <div class="pill-1 rotate-45"></div>
+                <div class="pill-2 rotate-45"></div>
+                <div class="pill-3 rotate-45"></div>
+                <div class="pill-4 rotate-45"></div>
+            </div>
+            <div class="login">
+                <h1 class="title">Admin Login</h1>
+                <br>
+                <div class="text-input">
+                    <i class="ri-user-fill"></i>
+                    <input type="text" placeholder="Admin id" id="admin_id">
+                </div>
+                <div class="text-input">
+                    <i class="ri-lock-fill"></i>
+                    <input type="password" placeholder="Admin Password" id="pass_user">
+                </div>
+                
+                <button class="login-btn" id="loginbtn">LOGIN</button>
+                <a href="#" class="forgot">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNee1JHsHXTfZIqBudf-HoHDghcYwdfL0",
+            authDomain: "bdaa-a48ca.firebaseapp.com",
+            projectId: "bdaa-a48ca",
+            storageBucket: "bdaa-a48ca.appspot.com",
+            messagingSenderId: "749803302390",
+            appId: "1:749803302390:web:9f050fba5b42e166c86bd7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import {getDatabase,ref,set,child,get} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+        const db=getDatabase();
+
+        const adminId=document.getElementById('admin_id');
+        const pass=document.getElementById('pass_user');
+        const loginbtn=document.getElementById('loginbtn');
+
+        function AuthenticateUser(){
+            const dbref=ref(db);
+            get(child(dbref,"AdminList/"+adminId.value)).then((snapshot)=>{
+                if(snapshot.exists()){
+                    let dbPass=decPass(snapshot.val().password);
+                    if(dbPass!==pass.value){
+                        alert("Username or Password is Invalid!")
+                        return;
+                    }
+                    else{
+                        login(snapshot.val());
+                    }
+                }
+                else{
+                    alert("Username or Password is Invalid");
+                }
+            });
+        }
+        function decPass(dbpass){
+            console.log(pass.value);
+            var pass12=CryptoJS.AES.decrypt(dbpass,pass.value);
+            console.log(pass12.toString(CryptoJS.enc.Utf8));
+            return pass12.toString(CryptoJS.enc.Utf8);
+        }
+        function login(user){
+            sessionStorage.setItem('admin-BDA-main',JSON.stringify(user));
+            window.location="Admin-home.html";
+        }
+        loginbtn.addEventListener('click',AuthenticateUser);
+    </script>
+</body>
+
+</html>

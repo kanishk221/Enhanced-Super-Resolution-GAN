@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+body {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(0, 133, 237, 1) 100%
+  );
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  font-family: "Roboto", sans-serif;
+}
+a{
+  color: #333;
+}
+.shadow {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.profile-tab-nav {
+  min-width: 250px;
+}
+
+.tab-content {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.nav-pills a.nav-link {
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+  color: #333;
+}
+.nav-pills a.nav-link i {
+  width: 20px;
+}
+
+.img-circle img {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  border: 5px solid #fff;
+}
+#phone-num {
+  cursor: no-drop;
+}
+#img-inp {
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #d6eeee;
+}
+
+.op-ic {
+  display: inline;
+  padding: 5px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.my-cont {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  padding: 10px 15px 10px 0px;
+  margin: 10px 440px 10px 410px;
+}
+#unum{
+  cursor:not-allowed;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus{
+  outline:none !important;
+  box-shadow:none !important;
+}
+.delicon{
+  cursor: pointer;
+}
+#addpub-pnum{
+  cursor: not-allowed;
+}
+.hidden{
+  display: none;
+}
+.toastr {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px 35px 20px 25px;
+  box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.toastr.active {
+  transform: translateX(0%);
+}
+
+.toastr .toast-content {
+  display: flex;
+  align-items: center;
+}
+
+.toast-content .check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  min-width: 35px;
+  background-color: #4070f4;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 50%;
+}
+.toast-content .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.message .text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.message .text.text-1 {
+  font-weight: 600;
+  color: #333;
+}
+
+.toastr .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.toastr .close:hover {
+  opacity: 1;
+}
+
+.toastr .progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+
+}
+
+.toastr .progress:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #4070f4;
+}
+
+.progress.active:before {
+  animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Admin-Courses.css">
+    <link rel="icon" href="./assets/iiita.png" type="image/x-icon">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <a onclick="closeModal()" id="bg" class="bg bg-hidden"></a>
+  <div class="sidebar">
+    <a href="Admin-home.html">
+      <div class="logo-details">
+        <i class='bx bxl-c-plus-plus'></i>
+        <span class="logo_name">BDA-IIITA<span>
+      </div>
+    </a>
+      <ul class="nav-links">
+        <li>
+          <a href="Admin-home.html">
+            <i class='bx bx-grid-alt' ></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-Collab.html">
+            <i class='bx bx-box' ></i>
+            <span class="links_name">Collaborators</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-Projects.html">
+            <i class='bx bx-list-ul' ></i>
+            <span class="links_name">Projects</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="active">
+            <i class='bx bx-pie-chart-alt-2' ></i>
+            <span class="links_name">Courses</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-Publications.html">
+            <i class='bx bxs-book-content' ></i>
+            <span class="links_name">Publications</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-PublicationsReq.html">
+            <i class='bx bxs-book-content' ></i>
+            <span class="links_name">Publication Requests</span>
+          </a>
+        </li>
+        <li class="log_out">
+          <a onclick="SignOut()">
+            <i class='bx bx-log-out'></i>
+            <span class="links_name">Log out</span>
+          </a>
+        </li>
+      </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Courses</span>
+      </div>
+      <div class="profile-details">
+        <img src="user.png" alt="">
+        <span class="admin_name">Admin</span>
+        <!-- <i class='bx bx-chevron-down' ></i> -->
+      </div>
+    </nav>
+   <div class="home-content">
+    <div class="my-cont">
+      <div style="display: flex;align-items: center;justify-content: center;margin-top: 20px;font-size: 1.4rem;">
+        <h2 >Add Course</h2>
+      </div>
+      <div class="form">
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="person"></ion-icon></div>
+              <input id="cid" type="text" class="form__input" placeholder="Course ID" required>
+          </div>
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="document-text"></ion-icon></div>
+              <input id="cname" type="email" class="form__input" placeholder="Course Name" required>
+          </div>
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="code-working"></ion-icon></div>
+              <input id="cabout" type="texg" class="form__input" placeholder="About Course" required>
+          </div>
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="attach"></ion-icon></div>
+              <input id="cinst" type="text" class="form__input" placeholder="Instructor Name" required>
+        </div>
+        <div class="wrap-input">
+          <div class="icon__account">
+              <ion-icon name="person"></ion-icon></div>
+          <input id="clink" type="text" class="form__input" placeholder="Course Link" required>
+      </div>
+        <div class="wrap-input">
+            <button class="btn" id="add_btn">Add</button>
+          </div>
+      </div>
+    </div>
+      <div class="data-table">
+        <table>
+          <thead>
+            <th>Sr No.</th>
+            <th>Course Name</th>
+            <th>Link</th>
+            <th>Instructor</th>
+            <th>Operations</th>
+          </thead>
+          <tbody id="tbody1">
+            
+          </tbody>
+        </table>
+      </div>
+      <!-- MODAL-->
+      <div class="modal hidden" id="modal_id">
+        <div class="my-cont">
+          <div class="close-cont">
+            <ion-icon name="close-outline" size="large" id="modal_close"></ion-icon>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: center;margin-top: 20px;font-size: 1.4rem;">
+            <h2 >Update Course</h2>
+          </div>
+          <div class="box">
+            <div class="form">
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="person"></ion-icon>
+                </div>
+                <input id="u_cid" type="text" class="form__input" placeholder="Course ID" required disabled>
+              </div>
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="mail"></ion-icon>
+                </div>
+                <input id="u_cname" type="email" class="form__input" placeholder="Course Name" required>
+              </div>
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="person"></ion-icon>
+                </div>
+                <input id="u_cabout" type="text" class="form__input" placeholder="About Course" required>
+              </div>
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="document-text-outline"></ion-icon>
+                </div>
+                <input id="u_ciname" type="text" class="form__input" placeholder="Instructor Name" required>
+              </div>
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="attach"></ion-icon>
+                </div>
+                <input id="u_clink" type="text" class="form__input" placeholder="Course Link" required>
+              </div>
+              <div class="wrap-input">
+                <button class="btn" id="update_btn">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+</section>
+
+<script>
+ let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".sidebarBtn");
+  sidebarBtn.onclick = function() {
+  sidebar.classList.toggle("active");
+  if(sidebar.classList.contains("active")){
+  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+  }else{
+  sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");}
+  }
+  let cmodal=document.getElementById("modal_close");
+  cmodal.addEventListener("click",closeModal)
+  function closeModal(){
+    document.getElementById("bg").classList.add("bg-hidden");
+    document.getElementById("modal_id").classList.add("hidden");
+  }
+    function SignOut(){
+        sessionStorage.removeItem('admin-BDA-main');
+        window.location="index.html";
+        alert("Signed Out Succesfully!");
+    }
+
+    function showModal(id,name,about,iname,link){
+      document.getElementById("bg").classList.remove("bg-hidden");
+      document.getElementById("modal_id").classList.remove("hidden");
+      document.getElementById("u_cid").value=id;
+      document.getElementById("u_cname").value=name;
+      document.getElementById("u_cabout").value=about;
+      document.getElementById("u_ciname").value=iname;
+      document.getElementById("u_clink").value=link;
+    }
+
+</script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+      const firebaseConfig = {
+          apiKey: "AIzaSyDNee1JHsHXTfZIqBudf-HoHDghcYwdfL0",
+          authDomain: "bdaa-a48ca.firebaseapp.com",
+          projectId: "bdaa-a48ca",
+          storageBucket: "bdaa-a48ca.appspot.com",
+          messagingSenderId: "749803302390",
+          appId: "1:749803302390:web:9f050fba5b42e166c86bd7"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      import {getDatabase,ref,set,child,get,remove,update} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+      const db=getDatabase();
+
+      const cid=document.getElementById("cid");
+      const cname=document.getElementById("cname");
+      const cabout=document.getElementById("cabout");
+      const cinst=document.getElementById("cinst");
+      const clink=document.getElementById("clink");
+      const reg = document.getElementById("add_btn");
+      var srno=0;
+      function AddCourse() {
+
+          const dbRef=ref(db);
+          
+          get(child(dbRef,"CourseList/"+cid.value)).then((snapshot)=>{
+              
+              if(snapshot.exists()){
+                  alert("This Course already exist");
+              }
+              else{
+                  set(ref(db,"CourseList/"+cid.value),{
+                      cid:cid.value,
+                      cname:cname.value,
+                      cab:cabout.value,
+                      iname:cinst.value,
+                      clink:clink.value
+                  })
+                  .then(()=>{
+                      cname.value = "";
+                      cid.value = "";
+                      cabout.value = "";
+                      cinst.value = "";
+                      clink.value="";
+                      alert("Course added Successfully!");
+                      SelectAllData();
+                  })
+                  .catch((e)=>{
+                      alert(e);
+                  })
+              }
+          });
+      }
+
+      reg.addEventListener("click",AddCourse);
+
+      //update part
+      const u_cname=document.getElementById("u_cname");
+      const u_cid=document.getElementById("u_cid");
+      const u_clink=document.getElementById("u_clink");
+      const u_cabout=document.getElementById("u_cabout");
+      const u_ciname=document.getElementById("u_ciname");
+
+      let ubutton=document.getElementById("update_btn").addEventListener("click",()=>{
+        update(ref(db,"CourseList/"+u_cid.value),{
+          cname:u_cname.value,
+          cab:u_cabout.value,
+          iname:u_ciname.value,
+          clink:u_clink.value
+        })
+        .then(()=>{
+          alert("Course Info Updated Successfully!");
+          SelectAllData();
+        })
+      })
+
+      //get part
+    
+      function AddItemsToTable(name,link,role,cid,about){
+        let tbod=document.getElementById('tbody1');
+        var newrow=document.createElement('tr');
+        var srcol=document.createElement('td');
+        srcol.innerText=++srno;
+        var namecol=document.createElement('td');
+        namecol.innerText=name;
+        var mailcol=document.createElement('td');
+        var lik=document.createElement('a');
+        lik.innerText=link;
+        lik.href=link;
+        lik.target="blank";
+        // mailcol.innerText=link;
+        mailcol.appendChild(lik);
+        var rolecol=document.createElement('td');
+        rolecol.innerText=role;
+        var opcol=document.createElement('td');
+        var ic=document.createElement('i');
+        ic.classList.add("bx");
+        ic.classList.add("bx-edit");
+        ic.classList.add("op-ic");
+        ic.addEventListener("click",()=>showModal(cid,name,about,role,link))
+        var bc=document.createElement('i');
+        bc.innerHTML=`<ion-icon name="trash-outline"></ion-icon>`;
+        bc.classList.add("op-ic");
+        bc.onclick=function(){delData(cid)};
+        opcol.appendChild(ic);
+        opcol.appendChild(bc);
+        newrow.appendChild(srcol);
+        newrow.appendChild(namecol);
+        newrow.appendChild(mailcol);
+        newrow.appendChild(rolecol);
+        newrow.appendChild(opcol);
+        tbod.appendChild(newrow);
+      }
+      function delData(cid){
+        const dbRef=ref(db);
+        remove(child(dbRef,"CourseList/"+cid)).then(()=>{
+          alert("Course Removed Successfully!");
+          SelectAllData();
+        }).catch(()=>{
+          alert("Error");
+        })
+      }
+      function SelectAllData(){
+        srno=0;
+        document.getElementById("tbody1").innerHTML="";
+        const dbRef=ref(db);
+        get(child(dbRef,"CourseList")).then((snapshot)=>{
+          let dtaArr=snapshot;
+          dtaArr.forEach(e => {
+            var name=e.val().cname;
+            var email=e.val().clink;
+            var role=e.val().iname;
+            AddItemsToTable(name,email,role,e.val().cid,e.val().cab);
+          });
+        })
+      }
+      function start(){
+        check();
+        SelectAllData();
+      }
+      function check(){
+        let x=sessionStorage.getItem('admin-BDA-main');
+        if(x===null){
+            window.location="admin-login.html";
+        }
+      }
+      
+      window.onload=start;
+      
+      </script>
+    
+</body>
+</html>

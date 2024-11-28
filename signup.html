@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="signup.css">
+    <link rel="icon" href="./assets/iiita.png" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <div id="navbar">
+        <img src="1.png" id="logo" alt="">
+        <!-- <a href="#" id="Home">Home</a> -->
+        <button onclick="window.location.href='index.html';" class="custom-btn btn-3"><span>Home</span></button>
+    </div>
+    
+    <div class="outer">
+        <div class="container">
+            <div class="design">
+                <div class="pill-1 rotate-45"></div>
+                <div class="pill-2 rotate-45"></div>
+                <div class="pill-3 rotate-45"></div>
+                <div class="pill-4 rotate-45"></div>
+            </div>
+            <div class="login">
+                <h1 class="title">Join Now</h1>
+                <br>
+                <div class="text-input">
+                    <i class="ri-user-fill"></i>
+                    <input type="text" id="F_name" placeholder="First Name" required>
+                </div>
+                <div class="text-input">
+                    <i class="ri-user-fill"></i>
+                    <input type="text" id="L_name" placeholder="Last Name" required>
+                </div>
+                <div class="text-input">
+                    <i class="ri-phone-fill"></i>
+                    <input type="number" id="phone_no"  maxlength="10" placeholder="Phone Number" required>
+                </div>
+                <div class="text-input">
+                    <i class="ri-mail-line"></i>
+                    <input type="email" id="user_email" placeholder="Email" required>
+                </div>
+                <div class="text-input">
+                    <i class="ri-lock-fill"></i>
+                    <input type="password" id="pass_inp" placeholder="Password" required>
+                </div>
+                <div class="text-input">
+                    <i class="ri-lock-fill"></i>
+                    <input type="password" placeholder="Confirm Password" id="cnf_pass" required>
+                </div>
+                
+                <button class="login-btn" id="reg_btn">Sign-Up</button>
+                <div class="create">
+                    <a href="login.html">Already Registered? Login</a>
+                    <i class="ri-arrow-right-fill"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNee1JHsHXTfZIqBudf-HoHDghcYwdfL0",
+            authDomain: "bdaa-a48ca.firebaseapp.com",
+            projectId: "bdaa-a48ca",
+            storageBucket: "bdaa-a48ca.appspot.com",
+            messagingSenderId: "749803302390",
+            appId: "1:749803302390:web:9f050fba5b42e166c86bd7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import {getDatabase,ref,set,child,get} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+        const db=getDatabase();
+
+        const firstName=document.getElementById("F_name");
+        const lastName=document.getElementById("L_name");
+        const phoneNo=document.getElementById("phone_no");
+        const Email=document.getElementById("user_email");
+        const pass=document.getElementById("pass_inp");
+        const cnfpass=document.getElementById("cnf_pass");
+        const reg=document.getElementById("reg_btn");
+        
+        function isEmptyOrSpaces(str){
+            return str===null || str.match(/^ *$/)!==null;
+        }
+        function Validation() {
+            let nameregex=/^[a-z A-Z\s]+$/;
+            let email=/^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+            let no=/^[0-9]$/;
+            if(isEmptyOrSpaces(firstName.value) || isEmptyOrSpaces(lastName.value) || isEmptyOrSpaces(phoneNo.value) || isEmptyOrSpaces(pass.value)){
+                alert("fields cannot be empty or contain only spaces");
+                return;
+            }
+            if(!nameregex.test(firstName.value) || !nameregex.test(lastName.value)){
+                alert("The name should only contain alphabets");
+                return false;
+            }
+            if(!email.test(Email.value)){
+                alert("Enter a valid email");
+                return false;
+            }
+            if(pass.value!==cnfpass.value){
+                alert("Passwords doesn't match");
+                return false;
+            }
+            return true;
+        }
+
+        function EncryptPass(){
+            var pass12=CryptoJS.AES.encrypt(pass.value,pass.value);
+            return pass12.toString();
+        }
+        function RegisterUser() {
+            if(!Validation()) return;
+            const dbRef=ref(db);
+            
+            get(child(dbRef,"UsersList/"+phoneNo.value)).then((snapshot)=>{
+                
+                if(snapshot.exists()){
+                    alert("Account with the same mobile number already exists!!");
+                }
+                else{
+                    set(ref(db,"UsersList/"+phoneNo.value),{
+                        firstname:firstName.value,
+                        lastname:lastName.value,
+                        email:Email.value,
+                        phone_no:phoneNo.value,
+                        password:EncryptPass()
+                    })
+                    .then(()=>{
+                        alert("User added Successfully");
+                        window.location="index.html";
+                    }).catch(e=>console.log(e));
+                }
+            });
+        }
+
+        reg.addEventListener("click",RegisterUser);
+      </script>
+</body>
+
+</html>

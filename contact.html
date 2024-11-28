@@ -1,0 +1,130 @@
+<!--doctype html-->
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+<link rel="icon" href="./assets/iiita.png" type="image/x-icon">
+
+<!---------link-stylesheet----------->
+<link rel="stylesheet" type="text/css" href="contact.css"/>
+<link rel="stylesheet" type="text/css" href="home.css"/>
+<!--using-fontAwesome------------>
+<script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<!--contact-form-container------------------->
+<nav>
+    <div class="container main-nav flex">
+        <a href="index.html" class="company-logo">
+            <img src="./assets/1.png" alt="company company-logo">
+        </a>
+        <div class="nav-links" id="nav-links">
+            <ul class="flex">
+                <li><a href="courses.html" class="hover-link">Courses</a></li>
+                <li><a href="collab.html" class="hover-link">Collaborators</a></li>
+                <li><a href="publications.html" class="hover-link">Publications</a></li>
+                <li><a href="contact.html" class="hover-link">Contact Us</a></li>
+                <li><a href="login.html" class="hover-link secondary-button" id="userlink">Sign in</a></li>
+                <li><a href="signup.html" class="hover-link primary-button" id="signoutlink">Sign up</a></li>
+            </ul>
+        </div>
+        <a href="#" class="nav-toggle hover:link" id="nav-toggle"><i class="fa-solid fa-bars"></i></a>
+    </div>
+</nav>
+	<section id="contact">
+	<!--socail----------->
+	<div class="social">
+	<!--icons--------->
+	<a href="#"><i class="fab fa-facebook-f"></i></a>
+	<a href="#"><i class="fab fa-twitter"></i></a>
+	<a href="#"><i class="fab fa-instagram"></i></a>
+	<a href="#"><i class="fab fa-dribbble"></i></a>
+	<a href="#"><i class="fab fa-behance"></i></a>
+		
+	</div>
+	<!--contact-box------------->
+	<div class="contact-box">
+	<!--heading---------->
+	<div class="c-heading">
+	<h1>Get In Touch</h1>
+	<p>Call or Email us regarding any queries.</p>
+	</div>
+	<!--inputs------------------>
+	<div class="c-inputs">
+	<form action="https://formspree.io/f/xyyaneor"
+	method="POST">
+	<input autocomplete="off" id="fname" type="text" placeholder="Name" required/>	
+	<input autocomplete="off" type="email" placeholder="example@gmail.com" required/>
+	<textarea name="message" placeholder="Write Message" required></textarea>
+	<!--sumbit-btn----------->
+	<button id="send-btn" type="submit">SEND</button>
+	</form>
+	</div>
+		
+	</div>
+	<!--map------------------->
+	<div class="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7206.530722541794!2d81.76718472547556!3d25.42939042454986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399acda4892cc187%3A0xb07e2e87ab51e82a!2sIndian%20Institute%20of%20Information%20Technology%2C%20Allahabad!5e0!3m2!1sen!2sin!4v1680158410214!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+	</section>
+	<script>
+        var fileName = location.href.split("/").slice(-1);     
+        let userlink=document.getElementById('userlink');
+        let signoutlink=document.getElementById('signoutlink');
+        var currentuser=null;
+        
+        function getUsername(){
+            let keepLoggedIn=localStorage.getItem("keepLoggedIn");
+            if(keepLoggedIn=="yes"){
+                currentuser=JSON.parse(localStorage.getItem('user'));
+            }
+            else{
+                currentuser=JSON.parse(sessionStorage.getItem('user'));
+            }
+        }
+        function SignOut(){
+            sessionStorage.removeItem('user');
+            localStorage.removeItem('user');
+            localStorage.removeItem('keepLoggedIn');
+            window.location=fileName;
+            alert("Signed Out Succesfully!");
+        }
+        window.onload=()=>{
+            let keepLoggedIn=localStorage.getItem("keepLoggedIn");
+            if(keepLoggedIn=="yes"){
+                currentuser=JSON.parse(localStorage.getItem('user'));
+                if(currentuser==null){
+                userlink.innerText="Sign in";
+                userlink.href="login.html";
+                signoutlink.innerText="Sign Up";
+                signoutlink.href="signup.html";
+                }
+                else{
+                    userlink.innerText=currentuser.firstname;
+                    userlink.href="./profile-page/profile.html";
+                    signoutlink.innerText="Sign Out";
+                    signoutlink.href="javascript:SignOut()";
+                }  
+            }
+            else{
+                currentuser=JSON.parse(sessionStorage.getItem('user'));
+                if(currentuser==null){
+                    userlink.innerText="Sign in";
+                    userlink.href="login.html";
+                    signoutlink.innerText="Sign Up";
+                    signoutlink.href="signup.html";
+                }
+                else{
+                    userlink.innerText=currentuser.firstname;
+                    userlink.href="./profile-page/profile.html";
+                    signoutlink.innerText="Sign Out";
+                    signoutlink.href="javascript:SignOut()";
+                }  
+            }
+        }
+        
+      </script>
+</body>
+</html>

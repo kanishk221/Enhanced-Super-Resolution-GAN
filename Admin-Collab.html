@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./assets/iiita.png" type="image/x-icon">
+    <link rel="stylesheet" href="Admin-Collab.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <a onclick="closeModal()" id="bg" class="bg bg-hidden"></a>
+  <div class="sidebar">
+    <a href="Admin-home.html">
+      <div class="logo-details">
+        <i class='bx bxl-c-plus-plus'></i>
+        <span class="logo_name">BDA-IIITA<span>
+      </div>
+    </a>
+      <ul class="nav-links">
+        <li>
+          <a href="Admin-home.html">
+            <i class='bx bx-grid-alt' ></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="active">
+            <i class='bx bx-box' ></i>
+            <span class="links_name">Collaborators</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-Projects.html">
+            <i class='bx bx-list-ul' ></i>
+            <span class="links_name">Projects</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-Courses.html">
+            <i class='bx bx-pie-chart-alt-2' ></i>
+            <span class="links_name">Courses</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-Publications.html">
+            <i class='bx bxs-book-content' ></i>
+            <span class="links_name">Publications</span>
+          </a>
+        </li>
+        <li>
+          <a href="Admin-PublicationsReq.html">
+            <i class='bx bxs-book-content' ></i>
+            <span class="links_name">Publication Requests</span>
+          </a>
+        </li>
+        <li class="log_out">
+          <a href="#" onclick="SignOut()">
+            <i class='bx bx-log-out'></i>
+            <span class="links_name">Log out</span>
+          </a>
+        </li>
+       
+      </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Collaborators</span>
+      </div>
+      <div class="profile-details">
+        <img src="user.png" alt="">
+        <span class="admin_name">Admin</span>
+        <!-- <i class='bx bx-chevron-down' ></i> -->
+      </div>
+    </nav>
+   <div class="home-content">
+    <div class="my-cont">
+      <div style="display: flex;align-items: center;justify-content: center;margin-top: 20px;font-size: 1.4rem;">
+        <h2 >Add Collaborator</h2>
+      </div>
+      <div class="form">
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="person"></ion-icon></div>
+              <input id="name" type="text" class="form__input" placeholder="Name" required>
+          </div>
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="mail"></ion-icon></div>
+              <input id="email" type="email" class="form__input" placeholder="Email" required>
+          </div>
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="person"></ion-icon></div>
+              <input id="role" type="texg" class="form__input" placeholder="Role" required>
+          </div>
+          <div class="wrap-input">
+              <div class="icon__account">
+                  <ion-icon name="document-text-outline"></ion-icon></div>
+              <input id="about" type="text" class="form__input" placeholder="About" required>
+          </div>
+          <div class="wrap-input">
+              <button class="btn" id="add_btn">Add</button>
+            </div>
+        </div>
+    </div>
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <th>Sr No.</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Operations</th>
+          </thead>
+          <tbody id="tbody1">
+            
+          </tbody>
+        </table>
+      </div>
+      <!-- MODAL-->
+      <div class="modal hidden" id="modal_id">
+        <div class="my-cont">
+          <div class="close-cont">
+            <ion-icon name="close-outline" size="large" id="modal_close"></ion-icon>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: center;margin-top: 20px;font-size: 1.4rem;">
+            <h2 >Update Collaborator</h2>
+          </div>
+          <div class="box">
+            <div class="form">
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="person"></ion-icon>
+                </div>
+                <input id="u_name" type="text" class="form__input" placeholder="Name" required disabled>
+              </div>
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="mail"></ion-icon>
+                </div>
+                <input id="u_email" type="email" class="form__input" placeholder="Email" required>
+              </div>
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="person"></ion-icon>
+                </div>
+                <input id="u_role" type="text" class="form__input" placeholder="Role" required>
+              </div>
+              <div class="wrap-input">
+                <div class="icon__account">
+                  <ion-icon name="document-text-outline"></ion-icon>
+                </div>
+                <input id="u_about" type="text" class="form__input" placeholder="About" required>
+              </div>
+              <div class="wrap-input">
+                <button class="btn" id="update_btn">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+</section>
+
+<script>
+ let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".sidebarBtn");
+  sidebarBtn.onclick = function() {
+  sidebar.classList.toggle("active");
+  if(sidebar.classList.contains("active")){
+  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+  }else
+  sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+  }
+  let cmodal=document.getElementById("modal_close");
+  cmodal.addEventListener("click",closeModal)
+  function closeModal(){
+    document.getElementById("bg").classList.add("bg-hidden");
+    document.getElementById("modal_id").classList.add("hidden");
+  }
+  function showModal(name,email,role,about){
+      document.getElementById("bg").classList.remove("bg-hidden");
+      document.getElementById("modal_id").classList.remove("hidden");
+      document.getElementById("u_name").value=name;
+      document.getElementById("u_email").value=email;
+      document.getElementById("u_role").value=role;
+      document.getElementById("u_about").value=about;
+    }
+</script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+      const firebaseConfig = {
+          apiKey: "AIzaSyDNee1JHsHXTfZIqBudf-HoHDghcYwdfL0",
+          authDomain: "bdaa-a48ca.firebaseapp.com",
+          projectId: "bdaa-a48ca",
+          storageBucket: "bdaa-a48ca.appspot.com",
+          messagingSenderId: "749803302390",
+          appId: "1:749803302390:web:9f050fba5b42e166c86bd7"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      import {getDatabase,ref,set,child,get,remove,update} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+      const db=getDatabase();
+
+      const name=document.getElementById("name");
+      const role=document.getElementById("role");
+      const Email=document.getElementById("email");
+      const reg=document.getElementById("add_btn");
+      const about = document.getElementById("about");
+      var srno=0;
+      function RegisterUser() {
+
+          const dbRef=ref(db);
+          
+          get(child(dbRef,"Collaborator/"+name.value)).then((snapshot)=>{
+              
+              if(snapshot.exists()){
+                  alert("This project collaborator already exist");
+              }
+              else{
+                  set(ref(db,"Collaborator/"+name.value),{
+                      name:name.value,
+                      email:Email.value,
+                      Role:role.value,
+                      about:about.value
+                  })
+                  .then(()=>{
+                      name.value = "";
+                      email.value = "";
+                      role.value = "";
+                      about.value = "";
+                      alert("Collaborator added Successfully!");
+                      SelectAllData();
+                  })
+                  .catch(()=>{
+                      alert("Error");
+                  })
+              }
+          });
+      }
+
+      reg.addEventListener("click",RegisterUser);
+
+      //update part
+      const u_name=document.getElementById("u_name");
+      const u_email=document.getElementById("u_email");
+      const u_role=document.getElementById("u_role");
+      const u_about=document.getElementById("u_about");
+
+      let ubutton=document.getElementById("update_btn").addEventListener("click",()=>{
+        update(ref(db,"Collaborator/"+u_name.value),{
+          about:u_about.value,
+          email:u_email.value,
+          Role:u_role.value
+        })
+        .then(()=>{
+          alert("Collaborator Info Updated Successfully!");
+          SelectAllData();
+        })
+      })
+
+      //get part
+    
+      function AddItemsToTable(name,email,role,about){
+        let tbod=document.getElementById('tbody1');
+        var newrow=document.createElement('tr');
+        var srcol=document.createElement('td');
+        srcol.innerText=++srno;
+        var namecol=document.createElement('td');
+        namecol.innerText=name;
+        var mailcol=document.createElement('td');
+        mailcol.innerText=email;
+        var rolecol=document.createElement('td');
+        rolecol.innerText=role;
+        var opcol=document.createElement('td');
+        var ic=document.createElement('i');
+        ic.classList.add("bx");
+        ic.classList.add("bx-edit");
+        ic.classList.add("op-ic");
+        ic.addEventListener("click",()=>showModal(name,email,role,about))
+        var bc=document.createElement('i');
+        bc.innerHTML=`<ion-icon name="trash-outline"></ion-icon>`;
+        bc.classList.add("op-ic");
+        bc.onclick=function(){delData(name)};
+        opcol.appendChild(ic);
+        opcol.appendChild(bc);
+        newrow.appendChild(srcol);
+        newrow.appendChild(namecol);
+        newrow.appendChild(mailcol);
+        newrow.appendChild(rolecol);
+        newrow.appendChild(opcol);
+        tbod.appendChild(newrow);
+      }
+      function delData(name){
+        const dbRef=ref(db);
+        remove(child(dbRef,"Collaborator/"+name)).then(()=>{
+          alert("Collaborator Removed Successfully!");
+          SelectAllData();
+        }).catch(()=>{
+          alert("Error");
+        })
+      }
+      function SelectAllData(){
+        srno=0;
+        document.getElementById("tbody1").innerHTML="";
+        const dbRef=ref(db);
+        get(child(dbRef,"Collaborator")).then((snapshot)=>{
+          let dtaArr=snapshot;
+          dtaArr.forEach(e => {
+            var name=e.val().name;
+            var email=e.val().email;
+            var role=e.val().Role;
+            AddItemsToTable(name,email,role,e.val().about);
+          });
+        })
+      }
+      function start(){
+        check();
+        SelectAllData();
+      }
+      function check(){
+          let x=sessionStorage.getItem('admin-BDA-main');
+          if(x===null){
+              window.location="admin-login.html";
+          }
+      }
+      window.onload=start;
+      </script>
+    <script>
+      function SignOut(){
+          sessionStorage.removeItem('admin-BDA-main');
+          window.location="index.html";
+          alert("Signed Out Succesfully!");
+      }
+  </script>
+</body>
+</html>
